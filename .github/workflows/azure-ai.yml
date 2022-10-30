@@ -92,7 +92,7 @@ env:
   RESOURCE_GROUP: MLOPS
   SUBSCRIPTION_ID: 45ce0754-cbf9-4f58-8c0b-0b784ff02025
 
-  ANIMALS: cats,dogs,pandas # As we have three classes, let's just defined them here. This way we can easily loop over them later.
+  ANIMALS: cats_v1,dogs_v1,pandas-v1 # As we have three classes, let's just defined them here. This way we can easily loop over them later.
   TRAIN_SET_NAME: animals-training-set
   TEST_SET_NAME: animals-testing-set
   MODEL_NAME: animal-cnn
