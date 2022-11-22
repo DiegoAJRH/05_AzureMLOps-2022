@@ -89,7 +89,7 @@ env:
   CLIENT_ID: 94f0d373-5831-48af-986d-525cde202f16
   TENANT_ID: 4ded4bb1-6bff-42b3-aed7-6a36a503bf7a
   WORKSPACE_NAME: diegojuarezml
-  RESOURCE_GROUP: NathanReserve
+  RESOURCE_GROUP: nathanreserve
   SUBSCRIPTION_ID: 7c50f9c3-289b-4ae0-a075-08784b3b9042
 
   ANIMALS: cats-raw,dogs-raw,pandas-raw # As we have three classes, let's just defined them here. This way we can easily loop over them later.

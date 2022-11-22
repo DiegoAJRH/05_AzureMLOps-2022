@@ -5,7 +5,6 @@ from tensorflow import keras
 from tensorflow.keras.models import load_model
 from PIL import Image
 
-
 ANIMALS = ['Cat', 'Dog', 'Panda']
 
 def init():
