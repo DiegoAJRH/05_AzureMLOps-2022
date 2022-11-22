@@ -76,7 +76,7 @@ def emptyDirectory(directory_path):
 def prepareDataset(ws):
     data_folder = os.path.join(os.getcwd(), 'data')
     os.makedirs(data_folder, exist_ok=True)
-    animalitos = ["cats-data", "dogs-data", "pandas-data"]
+    animalitos = ["cats-raw", "dogs-raw", "pandas-raw"]
     for animal_name in ANIMALS:
         os.makedirs(os.path.join(data_folder, 'animals', animal_name), exist_ok=True)
 
