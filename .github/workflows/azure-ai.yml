@@ -86,16 +86,16 @@ on:
 env:
   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
-  CLIENT_ID: 68ec3c29-5a1a-407e-8400-ba2cc296a2b0
+  CLIENT_ID: 94f0d373-5831-48af-986d-525cde202f16
   TENANT_ID: 4ded4bb1-6bff-42b3-aed7-6a36a503bf7a
-  WORKSPACE_NAME: diegojuarez-ml
-  RESOURCE_GROUP: MLOPS
-  SUBSCRIPTION_ID: 45ce0754-cbf9-4f58-8c0b-0b784ff02025
+  WORKSPACE_NAME: diegojuarezml
+  RESOURCE_GROUP: NathanReserve
+  SUBSCRIPTION_ID: 7c50f9c3-289b-4ae0-a075-08784b3b9042
 
-  ANIMALS: cats_v1,dogs_v1,pandas-v1 # As we have three classes, let's just defined them here. This way we can easily loop over them later.
+  ANIMALS: cats-raw,dogs-raw,pandas-raw # As we have three classes, let's just defined them here. This way we can easily loop over them later.
   TRAIN_SET_NAME: animals-training-set
   TEST_SET_NAME: animals-testing-set
-  MODEL_NAME: animal-cnn
+  MODEL_NAME: animal-cnnv2
 
   SCRIPT_FOLDER: scripts
 
@@ -251,7 +251,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ghcr.io/nathansegers/tetra-workshop
+            ghcr.io/diegoajr/animals-classification
           # generate Docker tags based on the following events/attributes:
           # The GitHub Branch
           # The GitHub SHA
@@ -266,7 +266,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.TOKEN_PACKAGES }}
 
       - name: Docker Build and push
         id: docker_build

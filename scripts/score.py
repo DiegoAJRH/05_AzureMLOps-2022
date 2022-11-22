@@ -12,7 +12,7 @@ def init():
 
     # The AZUREML_MODEL_DIR environment variable indicates
     # a directory containing the model file you registered.
-    model_path = os.path.join(os.environ.get('AZUREML_MODEL_DIR'), 'animal-cnn')
+    model_path = os.path.join(os.environ.get('AZUREML_MODEL_DIR'), 'animal-cnnv2')
 
     model = load_model(model_path)
 
