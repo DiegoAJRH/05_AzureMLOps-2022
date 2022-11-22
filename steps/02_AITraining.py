@@ -72,14 +72,16 @@ def prepareEnvironment(ws):
     # It's called CondaDependencies, but you can also use pip packages ;-)
     # This is the old way to do so
 
-    # env.python.conda_dependencies = CondaDependencies.create(
-    #         # Using opencv-python-headless is interesting to skip the overhead of packages that we don't need in a headless-VM.
-    #         pip_packages=['azureml-dataset-runtime[pandas,fuse]', 'azureml-defaults', 'tensorflow', 'scikit-learn', 'opencv-python-headless']
-    #     )
+    env = Environment(name=environment_name)
+
+    env.python.conda_dependencies = CondaDependencies.create(
+            # Using opencv-python-headless is interesting to skip the overhead of packages that we don't need in a headless-VM.
+            pip_packages=['azureml-dataset-runtime[pandas,fuse]', 'azureml-defaults', 'tensorflow', 'scikit-learn', 'opencv-python-headless', 'numpy']
+        )
 
     # We can directly create an environment from a saved file
-    env = Environment.from_conda_specification(environment_name, file_path=conda_dependencies_path)
-    env.python.user_managed_dependencies = os.environ.get('TRAIN_ON_LOCAL') != 'true' # False when training on local machine, otherwise True.
+    # env = Environment.from_conda_specification(environment_name, file_path=conda_dependencies_path)
+    # env.python.user_managed_dependencies = os.environ.get('TRAIN_ON_LOCAL') != 'true' # False when training on local machine, otherwise True.
     # Register environment to re-use later
     env.register(workspace = ws)
 
