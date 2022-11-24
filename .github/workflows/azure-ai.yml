@@ -298,14 +298,15 @@ jobs:
 
     steps:
       - name: Create namespace
-        run: kubectl create namespace animals-classification
+        run: |
+          kubectl delete namespace animals-classification
+          kubectl create namespace animals-classification
         shell: cmd
 
       - name: Deploy to Kubernetes
-      
         run: |
-          kubectl apply -f kubernetesDeployment/deployment.yaml
-          kubectl apply -f kubernetesDeployment/service.yaml
+          kubectl apply -f ../../kubernetesDeploy/deployment.yml -n animals-classification
+          kubectl apply -f ../../kubernetesDeploy/service.yml -n animals-classification
         shell: cmd
         
   
