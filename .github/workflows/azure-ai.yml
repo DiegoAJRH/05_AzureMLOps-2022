@@ -286,7 +286,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-  build-docker-image-local:
+  kubernetes_deployment:
     needs: [docker-build-and-push]
     # This will run Always BUT only when the previous two jobs were successful or skipped && the local_deployment flag is set to true.
     if: ${{
@@ -297,9 +297,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    # how to pull an image from GHCR with my token
-    - name: Pull Docker Image
-      run: docker pull ghcr.io/diegoajrh/animals-classification:sha-4e26d5c
+      - name: Create namespace
+        run: kubectl create namespace animals-classification
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f kubernetesDeployment/deployment.yaml
+          kubectl apply -f kubernetesDeployment/service.yaml
+        
+  
   
 
 
