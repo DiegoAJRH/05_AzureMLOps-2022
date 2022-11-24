@@ -309,10 +309,12 @@ jobs:
       - name: Download image from GHCR
         run: |
           docker pull ghcr.io/diegoajrh/animals-classification:sha-0f61f5a
+        shell: cmd
         
       - name: Run container
         run: |
           docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:sha-0f61f5a
+        shell: cmd
 
   kubernetes_deployment:
     needs: [docker-build-and-push]
