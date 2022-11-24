@@ -297,12 +297,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    # pull image from GHCR and build it in the local runner
-      - name: Pull image from GHCR
-        run: docker pull ghcr.io/diegoajrh/animals-classification:latest
+    # how to pull an image from GHCR with my token
+    - name: Pull Docker Image
+      run: docker pull ghcr.io/diegoajrh/animals-classification:sha-4e26d5c
+  
 
-      - name: Run container
-        run: docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:latest
+
       
 
 
