@@ -59,8 +59,12 @@ def main():
     print(os.environ)
 
     environment = prepareEnv(ws)
-    service = prepareDeployment(ws, environment)
-    service.wait_for_deployment(show_output=True)
+    # service = prepareDeployment(ws, environment)
+    # service.wait_for_deployment(show_output=True)
+    print("Downloading latest model........")
+    model = downloadLatestModel(ws)
+    print("The model is downloaded")
+    
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ app.add_middleware(
 
 ANIMALS = ['Cat', 'Dog', 'Panda'] # Animal names here
 
-model = load_model('outputs/animal-cnn-test') # Model_name here!
+model = load_model('outputs/animal-cnnv2') # Model_name here!
 
 @app.post('/upload/image')
 async def uploadImage(img: UploadFile = File(...)):

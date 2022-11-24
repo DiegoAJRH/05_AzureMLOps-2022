@@ -20,8 +20,8 @@ on:
       api_creation:
         description: 'API Creation'
         type: boolean
-        default: true
-        required: true
+        default: false
+        required: false
       process_images:
         description: 'Check to skip the processing of the original Data images'
         type: boolean
@@ -41,7 +41,7 @@ on:
         description: 'Check if we should deploy the API locally later on.'
         type: boolean
         default: false
-        required: true
+        required: false
 
   workflow_dispatch:
     branches: [ main, lessonsteps/** ]
