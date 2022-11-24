@@ -59,8 +59,8 @@ on:
       api_creation:
         description: 'API Creation'
         type: boolean
-        default: true
-        required: true
+        default: false
+        required: false
       process_images:
         description: 'Check to skip the processing of the original Data images'
         type: boolean
@@ -276,6 +276,33 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
+  build-docker-image-local:
+    needs: [docker-build-and-push]
+    # This will run Always BUT only when the previous two jobs were successful or skipped && the local_deployment flag is set to true.
+    if: ${{
+        always() &&
+        (needs.docker-build-and-push.result == 'success' || needs.docker-build-and-push.result == 'skipped') &&
+        inputs.local_deployment
+      }}
+    runs-on: self-hosted
+
+    steps:
+      - name: Download docker-config artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: docker-config
+
+      # Step where it pulls the image from Github packages
+      - name: Pull Docker Image
+        run: docker pull ghcr.io/diegoajrh/animals-classification:latest
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.TOKEN_PACKAGES }}
+        
+      # Step where it runs the image
+      - name: Run Docker Image
+        run: docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:latest
 
 
 
