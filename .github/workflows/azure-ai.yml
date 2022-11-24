@@ -42,6 +42,11 @@ on:
         type: boolean
         default: false
         required: false
+      local_docker:
+        description: 'Deploys the api locally from package images in github'
+        type: boolean
+        default: false
+        required: false
 
   workflow_dispatch:
     branches: [ main, lessonsteps/** ]
@@ -78,6 +83,11 @@ on:
         required: true
       local_deployment:
         description: 'Check if we should deploy the API locally later on.'
+        type: boolean
+        default: false
+        required: true
+      local_docker:
+        description: 'Deploys the api locally from package images in github'
         type: boolean
         default: false
         required: true
@@ -282,24 +292,18 @@ jobs:
     if: ${{
         always() &&
         (needs.docker-build-and-push.result == 'success' || needs.docker-build-and-push.result == 'skipped') &&
-        inputs.local_deployment
+        inputs.local_docker
       }}
     runs-on: self-hosted
 
     steps:
-      - name: Download docker-config artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: docker-config
-
-      # Step where it pulls the image from Github packages 
-      - name: Pull Docker Image
+    # pull image from GHCR and build it in the local runner
+      - name: Pull image from GHCR
         run: docker pull ghcr.io/diegoajrh/animals-classification:latest
-        
-      # Step where it runs the image
-      - name: Run Docker Image
-        run: docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:latest
 
+      - name: Run container
+        run: docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:latest
+      
 
 
 
