@@ -47,6 +47,11 @@ on:
         type: boolean
         default: false
         required: false
+      local_kubernetes:
+        description: 'Deploys the api locally from package images in github using kubernetes'
+        type: boolean
+        default: false
+        required: false
 
   workflow_dispatch:
     branches: [ main, lessonsteps/** ]
@@ -91,7 +96,11 @@ on:
         type: boolean
         default: false
         required: true
-    
+      local_kubernetes:
+        description: 'Deploys the api locally from package images in github using kubernetes'
+        type: boolean
+        default: false
+        required: true
 
 env:
   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
@@ -286,13 +295,32 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-  kubernetes_deployment:
+  docker_deployment:
     needs: [docker-build-and-push]
     # This will run Always BUT only when the previous two jobs were successful or skipped && the local_deployment flag is set to true.
     if: ${{
         always() &&
         (needs.docker-build-and-push.result == 'success' || needs.docker-build-and-push.result == 'skipped') &&
         inputs.local_docker
+      }}
+    runs-on: self-hosted
+
+    steps:
+      - name: Download image from GHCR
+        run: |
+          docker pull ghcr.io/diegoajrh/animals-classification:sha-0f61f5a
+        
+      - name: Run container
+        run: |
+          docker run -d -p 5000:5000 ghcr.io/diegoajrh/animals-classification:sha-0f61f5a
+
+  kubernetes_deployment:
+    needs: [docker-build-and-push]
+    # This will run Always BUT only when the previous two jobs were successful or skipped && the local_deployment flag is set to true.
+    if: ${{
+        always() &&
+        (needs.docker-build-and-push.result == 'success' || needs.docker-build-and-push.result == 'skipped') &&
+        inputs.local_kubernetes
       }}
     runs-on: self-hosted
 
