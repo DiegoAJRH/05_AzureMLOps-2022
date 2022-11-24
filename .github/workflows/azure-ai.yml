@@ -292,13 +292,9 @@ jobs:
         with:
           name: docker-config
 
-      # Step where it pulls the image from Github packages
+      # Step where it pulls the image from Github packages 
       - name: Pull Docker Image
         run: docker pull ghcr.io/diegoajrh/animals-classification:latest
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.TOKEN_PACKAGES }}
         
       # Step where it runs the image
       - name: Run Docker Image
