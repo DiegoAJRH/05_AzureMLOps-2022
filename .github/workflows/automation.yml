@@ -18,4 +18,3 @@ jobs:
       local_docker: false
       local_kubernetes: true
     secrets: inherit
-    
