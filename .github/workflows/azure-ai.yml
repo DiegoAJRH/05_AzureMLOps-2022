@@ -305,8 +305,9 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f kubernetesDeploy/deployment.yml -n animals-classification
-          kubectl apply -f kubernetesDeploy/service.yml -n animals-classification
+
+          kubectl apply -f ../05_AzureMLOps-2022/kubernetesDeploy/deployment.yml -n animals-classification
+          kubectl apply -f ../05_AzureMLOps-2022/kubernetesDeploy/service.yml -n animals-classification
         shell: cmd
         
   
